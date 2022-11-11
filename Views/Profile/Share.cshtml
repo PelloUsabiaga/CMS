@@ -1,0 +1,61 @@
+﻿@model CMS02.Models.ViewModels.DocumentOptionViewModel
+@{
+    Document document = Model.Document;
+    string SearchString = Model.SearchString;
+}
+@{
+    ViewData["Title"] = "Share";
+}
+
+<h1>Share</h1>
+
+<div>
+    <h4>Document</h4>
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Public)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Public)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.ShowDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.ShowDescription)
+        </dd>
+    </dl>
+    Email of the user you whant to share this file with:<br />
+    <form asp-action="ShareSend" asp-route-DocumentId="@document.DocumentId" asp-route-SearchString="@SearchString">
+        <input type="text" asp-for="SearchString" />
+        <input type="hidden" asp-for="Document.DocumentId" />
+        <input type="submit" value="Share" class="btn btn-primary" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+
+@if (ViewBag.Mensaje != "1")
+{
+    <script>alert("@ViewBag.Mensaje");</script>
+}

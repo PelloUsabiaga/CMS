@@ -1,0 +1,4 @@
+ikustagun, normal idatziko dut textu bat, ea zelan geratzen den. hau guztia nabigatzailean paragrafo batean agertu beharko liteke, eta honen ondoren lerro salto bat agertu.
+hemen beste paragrafoa hasi da.
+
+horain bi lerro salto sakatu ditut.

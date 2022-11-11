@@ -1,0 +1,131 @@
+﻿@model CMS02.Models.DocumentViewList
+
+@{
+    ViewData["Title"] = "My Documents";
+}
+
+<h1>My Documents</h1>
+
+<p>
+    <a asp-action="Upload" asp-route-mensaje="1">
+        <input type="submit" value="Upload New" class="btn btn-primary" />
+    </a>
+    <a asp-action="UploadText" asp-route-mensaje="1">New Text</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @if (Model.Documents != null)
+        {
+
+            if (Model.Documents.Count == 0)
+            {
+                <div>
+                    <p>
+                        You have not any document yet.
+                    </p>
+                </div>
+            }
+            else
+            {
+                foreach (var item in Model.Documents)
+                {
+                    <tr>
+                        <td>
+                            <div align="center">
+                                <p>
+                                    @if (item.DocTipe == 0) // Better than switch in this case
+                                    {
+                                        <img class="img-fluid" src="~/@item.Source" align="middle" asp-append-version="true" />
+                                    }
+                                    // There I will assume that all web browsers supports this implementation.
+                                    else if (item.DocTipe == 1)
+                                    {
+                                        <video src="~/@item.Source" align="middle" asp-append-version="true" controls></video>
+                                    }
+                                    else if (item.DocTipe == 2)
+                                    {
+                                        <object data="~/@item.Source"
+                                                type="application/pdf"
+                                                width="500"
+                                                height="678">
+
+                                            <iframe src="~/@item.Source"
+                                                    width="500"
+                                                    height="678">
+                                                <p>This browser does not support PDF!</p>
+                                            </iframe>
+
+                                        </object>
+                                    }
+                                    else if (item.DocTipe == 3)
+                                    {
+                                        string[] text = System.IO.File.ReadAllLines("wwwroot/" + item.Source);
+                                        foreach (string line in text)
+                                        {
+                                            <div align="left" id="container">
+                                                @if (line.Length == 0)
+                                                {
+                                                    <br />
+                                                }
+                                                @line
+                                            </div>
+                                        }
+
+                                    }
+
+                                    <br />
+                                    @if (item.Name != "__restringedNameText")
+                                    {
+                                        <div>
+                                            <a asp-action="Edit" asp-route-document="@item.DocumentId">Edit</a> |
+                                            <a asp-action="Share" asp-route-document="@item.DocumentId" asp-route-mensaje="1">Share</a> |
+                                            <a asp-action="Download" asp-route-DocumentPath="@item.Source">Download</a> |
+                                            <a asp-action="Details" asp-route-document="@item.DocumentId">Details</a> |
+                                            <a asp-action="Delete" asp-route-document="@item.DocumentId">Delete</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            <a asp-action="Delete" asp-route-document="@item.DocumentId">Delete</a>
+                                        </div>
+                                    }
+
+                                    @if (item.ShowDescription)
+                                    {
+                                        <div align="center" id="container">
+                                            @item.Description
+                                        </div>
+                                    }
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <div>
+                <p>
+                    You have not any document yet.
+                </p>
+            </div>
+        }
+    </tbody>
+</table>
+
+<style>
+    #container {
+        max-width: 1000px;
+        overflow-wrap: break-word;
+    }
+</style>

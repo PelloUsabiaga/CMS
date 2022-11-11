@@ -1,0 +1,27 @@
+﻿@using Microsoft.AspNetCore.Http
+@using CMS02.Extensions;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@*@var currentUser = (User) HttpContextAccessor.HttpContext.Session.Get("User")*@
+@{ User currentUser = HttpContextAccessor.HttpContext.Session.Get<User>("User");}
+
+<ul class="navbar-nav">
+    @if (currentUser != null)
+    {
+        string Username = currentUser.Username;
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-page="/Account/Manage/Index" title="Manage">Hello @Username!</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Logout" asp-action="Logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="Register">Register</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Access" asp-action="Login">Login</a>
+        </li>
+    }
+</ul>

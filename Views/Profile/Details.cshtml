@@ -1,0 +1,50 @@
+﻿@model CMS02.Models.ViewModels.DocumentOptionViewModel
+@{
+    Document document = Model.Document;
+}
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Movie</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Description)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Description)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.Public)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.Public)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => document.ShowDescription)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => document.ShowDescription)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@document.DocumentId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
